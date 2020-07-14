@@ -8,6 +8,9 @@
 <!--<arg name="yaw" default="0"/>-->
 <include file="$(find gazebo_ros)/launch/empty_world.launch">
     <arg name="world_name" value="$(find gazebo_scorpio_plugin)/worlds/scorpio.world"/>
-    <arg name="paused" value="True" />
+    <arg name="paused" value="False" />
 </include>
+
+<node pkg="gazebo_scorpio_plugin" type="scorpio_node" name="pointNode"/>
+
 </launch>

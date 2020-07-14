@@ -22,13 +22,13 @@ link_directories("/usr/local/lib")
 #gazebo & catkin
 find_package(gazebo REQUIRED)
 
-find_package(catkin REQUIRED COMPONENTS gazebo_ros roscpp rospy std_msgs)
+find_package(catkin REQUIRED COMPONENTS gazebo_ros roscpp rospy std_msgs geometry_msgs)
 
 
 #link_directories(${GAZEBO_LIBRARY_DIRS})
 include_directories(${Boost_INCLUDE_DIR} ${catkin_INCLUDE_DIRS} ${GAZEBO_INCLUDE_DIRS})
 
-catkin_package(DEPENDS roscpp rospy gazebo_ros)
+catkin_package(DEPENDS roscpp rospy gazebo_ros geometry_msgs)
 
 #dart
 #find_package(DART 6.9 REQUIRED COMPONENTS utils-urdf gui-osg CONFIG)
@@ -53,9 +53,11 @@ include_directories(${PNC_INCLUDE_DIRS})
 ## BUILD SETUP
 ##=============================================================================
 
-add_library(${PROJECT_NAME} SHARED src/scorpio_plugin.cpp)
+add_library(${PROJECT_NAME} SHARED src/scorpio_plugin.cpp src/scorpio_node.cpp)
 target_link_libraries(${PROJECT_NAME} 
                     ${catkin_LIBRARIES} 
                     ${GAZEBO_LIBRARIES}
                     ${PNC_LIBRARIES}
                     )
+
+add_executable(scorpio_node src/scorpio_node.cpp)
